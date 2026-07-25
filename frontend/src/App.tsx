@@ -1,11 +1,26 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import MainLayout from "./layouts/MainLayout";
+
+import Home from "./pages/user/Home";
+import Register from "./pages/user/Register";
+
 function App() {
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-100">
-            <h1 className="text-5xl font-bold text-green-600">
-                FinTrack
-            </h1>
-        </div>
-    );
+  return (
+    <BrowserRouter>
+      <Routes>
+
+        <Route element={<MainLayout />}>
+
+          <Route path="/" element={<Home />} />
+
+        </Route>
+
+        <Route path="/register" element={<Register />} />
+
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
