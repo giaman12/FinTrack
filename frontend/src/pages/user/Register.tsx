@@ -7,9 +7,9 @@ function Register() {
         <>
             <img src={img_bg} alt="Nền" className="fixed inset-0 w-full h-full object-cover object-center -z-10" />
 
-            <div className="fixed inset-0 flex items-center justify-end mr-30">
+            <div className="flex min-h-screen items-center justify-center px-6 lg:justify-end lg:px-24">
                 {/* Form Đăng ký */}
-                <div className="relative z-10 w-full max-w-lg bg-white p-6 rounded-3xl shadow-2xl my-auto ml-auto max-h-[90vh] overflow-y-auto">
+                <div className="relative w-full max-w-lg bg-white p-6 rounded-3xl shadow-2xl md:ml-auto max-h-[95vh] overflow-y-auto">
                     <h1 className="text-[30px] font-bold mb-1 text-center">Tạo tài khoản</h1>
                     <p className="text-gray-500 mb-2 text-sm text-center">Bắt đầu hành trình quản lý tài chính của bạn</p>
 
