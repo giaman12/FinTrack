@@ -12,3 +12,8 @@ body {
     font-family: Inter, system-ui, sans-serif;
     background: #f8fafc;
 }
+
+/* Ẩn icon con mắt mặc định của trình duyệt trên trường nhập mật khẩu */
+input[type="password"]::-ms-reveal {
+    display: none;
+}
