@@ -22,7 +22,7 @@ public class AuthServiceImpl implements AuthService {
 
     // Đăng ký
     @Override
-    public RegisterResponse register(RegisterRequest request) {
+    public UserResponse register(RegisterRequest request) {
         // Kiểm tra đã xác nhận mật khẩu chưa?
         if (!request.getPassword().equals(request.getConfirmPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mật khẩu không khớp");
@@ -48,12 +48,33 @@ public class AuthServiceImpl implements AuthService {
 
         User savedUser = userRepository.save(newUser);
 
-        // Chuyển đổi sang RegisterResponse để trả về
-        return RegisterResponse.builder()
+        // Chuyển đổi sang UserResponse để trả về
+        return UserResponse.builder()
                 .id(savedUser.getId())
                 .fullName(savedUser.getFullName())
                 .email(savedUser.getEmail())
                 .status(savedUser.getStatus())
+                .build();
+    }
+
+    @Override
+    public UserResponse login(LoginRequest request) {
+        // Tìm người dùng theo email
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email không tồn tại"));
+
+        // Kiểm tra mật khẩu
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Mật khẩu không đúng");
+        }
+
+        // Chuyển đổi sang UserResponse để trả về
+        return UserResponse.builder()
+                .id(user.getId())
+                .fullName(user.getFullName())
+                .email(user.getEmail())
+                .status(user.getStatus())
+                .role(user.getRole())
                 .build();
     }
 

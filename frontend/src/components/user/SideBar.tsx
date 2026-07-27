@@ -1,10 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo_fintrack.png";
-import { Moon } from "lucide-react";
+import { Moon, User } from "lucide-react";
 import { sidebarMenu } from "../../constants/sidebarMenu";
+import { useAuth } from "../../contexts/AuthContext";
 
 const SideBar: React.FC = () => {
+    const { authUser } = useAuth();
+
+    // Hàm lấy chữ cái đầu của tên
+    const getInitials = (name: string) => {
+        if (!name || name === "Đang tải...") return "";
+        return name.trim().charAt(0).toUpperCase();
+    };
+
     return (
         <aside className="flex h-screen w-72 flex-col border-r border-gray-200 bg-white">
 
@@ -63,25 +72,46 @@ const SideBar: React.FC = () => {
                 </button>
 
                 {/* User */}
-                <div className="flex items-center gap-3 rounded-xl bg-gray-50 p-3">
+                {authUser ? (
+                    <div className="flex items-center gap-3 rounded-xl bg-gray-50 p-3">
 
-                    <img
-                        src="https://i.pravatar.cc/100"
-                        alt="Avatar"
-                        className="h-12 w-12 rounded-full object-cover"
-                    />
+                        {authUser.avatar ? (
+                            <img
+                                src={authUser.avatar}
+                                alt="Avatar"
+                                className="h-12 w-12 rounded-full object-cover"
+                            />
+                        ) : (
+                            <div
+                                className="h-12 w-12 rounded-full flex items-center justify-center bg-emerald-500 text-amber-50 font-semibold text-xl"
+                                title={authUser.fullName}
+                            >
+                                {getInitials(authUser.fullName)}
+                            </div>
+                        )}
 
-                    <div>
-                        <h3 className="text-sm font-semibold text-gray-800">
-                            Nguyễn Văn A
-                        </h3>
+                        <div>
+                            <h3 className="text-sm font-semibold text-gray-800">
+                                {authUser.fullName}
+                            </h3>
 
-                        <p className="text-xs text-gray-500">
-                            Personal Account
-                        </p>
+                            <p className="text-xs text-gray-500">
+                                Tài khoản cá nhân
+                            </p>
+                        </div>
+
                     </div>
-
-                </div>
+                ) : (
+                    <NavLink
+                        to="/login"
+                        className="flex items-center gap-3 rounded-xl bg-gray-50 p-3 hover:bg-gray-100 transition"
+                    >
+                        <User size={24} className="text-gray-500" />
+                        <div className="text-left">
+                            <h3 className="text-sm font-semibold text-gray-800">Đăng nhập</h3>
+                        </div>
+                    </NavLink>
+                )} 
 
             </div>
 

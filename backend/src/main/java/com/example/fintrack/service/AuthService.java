@@ -4,5 +4,7 @@ import com.example.fintrack.dto.response.*;
 import com.example.fintrack.dto.request.*;
 
 public interface AuthService {
-    RegisterResponse register(RegisterRequest request);
+    UserResponse register(RegisterRequest request);
+
+    UserResponse login(LoginRequest request);
 }
