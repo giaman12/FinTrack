@@ -5,8 +5,10 @@ import IncomeExpense from "../../components/user/dashboard/IncomeExpense";
 import ExpenseCategory from "../../components/user/dashboard/ExpenseCategory";
 import RecentTransactions from "../../components/user/dashboard/RecentTransactions";
 import BudgetCard from "../../components/user/dashboard/BudgetCard";
+import { useAuth } from "../../contexts/AuthContext";
 
 function Home() {
+    const { authUser } = useAuth();
 
     const [startDate, setStartDate] = useState("2026-07-01");
 
@@ -16,7 +18,7 @@ function Home() {
         <>
 
             <Greeting
-                userName="Nguyễn Văn A"
+                userName={authUser?.fullName || "Đang tải..."}
                 startDate={startDate}
                 endDate={endDate}
                 onStartDateChange={setStartDate}

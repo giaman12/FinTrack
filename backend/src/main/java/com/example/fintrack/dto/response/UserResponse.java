@@ -1,6 +1,7 @@
 package com.example.fintrack.dto.response;
 
 import lombok.*;
+import com.example.fintrack.entity.Role;
 import com.example.fintrack.entity.*;
 
 @Data
@@ -8,11 +9,12 @@ import com.example.fintrack.entity.*;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class RegisterResponse {
+public class UserResponse {
     private Integer id;
     private String fullName;
     private String email;
     private String phone;
     private String avatar;
     private UserStatus status;
+    private Role role;
 }
